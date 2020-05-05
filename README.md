@@ -1,22 +1,22 @@
 :warning:
 
-# This docker image is no longer maintained.
+## mxserver/mailserver
 
-:warning:
-
-## hardware/mailserver
+Based on hardware/mailserver
 
 ### Chat & questions
 
-[![](https://badges.gitter.im/hardware-mailserver/Lobby.svg)](https://gitter.im/hardware-mailserver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Telegram channel]()](https://t.me/mxserver)
+
+[![Telegram chat]()](https://t.me/mxserverchat)
 
 ### Build
 
-[![](https://travis-ci.org/hardware/mailserver.svg?branch=master)](https://travis-ci.org/hardware/mailserver) [![](https://images.microbadger.com/badges/version/hardware/mailserver:1.1-latest.svg)](https://microbadger.com/images/hardware/mailserver:1.1-latest)
+[![](https://travis-ci.org/mxserver/mailserver.svg?branch=master)](https://travis-ci.org/mxserver/mailserver) [![](https://images.microbadger.com/badges/version/mxserver/mailserver:latest.svg)](https://microbadger.com/images/mxserver/mailserver:latest)
 
 ### Docker image
 
-[![](https://images.microbadger.com/badges/image/hardware/mailserver:1.1-latest.svg)](https://microbadger.com/images/hardware/mailserver:1.1-latest) [![](https://img.shields.io/docker/automated/hardware/mailserver.svg)](https://hub.docker.com/r/hardware/mailserver/builds/) [![](https://img.shields.io/docker/pulls/hardware/mailserver.svg)](https://hub.docker.com/r/hardware/mailserver/) [![](https://img.shields.io/docker/stars/hardware/mailserver.svg)](https://hub.docker.com/r/hardware/mailserver/) [![](https://img.shields.io/badge/bitcoin-donate-green.svg)](https://keybase.io/hardware)
+[![](https://images.microbadger.com/badges/image/mxserver/mailserver:latest.svg)](https://microbadger.com/images/hardware/mailserver:1.1-latest) [![](https://img.shields.io/docker/automated/hardware/mailserver.svg)](https://hub.docker.com/r/hardware/mailserver/builds/) [![](https://img.shields.io/docker/pulls/hardware/mailserver.svg)](https://hub.docker.com/r/hardware/mailserver/) [![](https://img.shields.io/docker/stars/hardware/mailserver.svg)](https://hub.docker.com/r/hardware/mailserver/) [![](https://img.shields.io/badge/bitcoin-donate-green.svg)](https://keybase.io/hardware)
 
 **hardware/mailserver** is a simple and full-featured mail server build as a set of multiple docker images, including:
 
@@ -40,7 +40,7 @@
 
 ### Summary
 
-- [hardware/mailserver](#hardwaremailserver)
+- [mxserver/mailserver](#hardwaremailserver)
   - [Chat & questions](#chat--questions)
   - [Build](#build)
   - [Docker image](#docker-image)
@@ -150,7 +150,7 @@ If you have a firewall, unblock the following ports, according to your needs :
 
 #### DNS setup
 
-I recommend you to use [hardware/nsd-dnssec](https://github.com/hardware/nsd-dnssec) as an authoritative name server with DNSSEC capabilities. NSD is an authoritative only, high performance, simple and open source name server.
+I recommend you to use [mxserver/nsd-dnssec](https://github.com/mxserver/nsd-dnssec) as an authoritative name server with DNSSEC capabilities. NSD is an authoritative only, high performance, simple and open source name server.
 
 #### DNS records and reverse PTR
 

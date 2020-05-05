@@ -15,14 +15,14 @@ networks:
 
 services:
   traefik:
-    image: traefik:1.7-alpine
+    image: traefik:2.2
     restart: ${RESTART_MODE}
     ports:
       - "80:80"
       - "443:443"
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:mail.${MAILSERVER_DOMAIN}
+      - traefik.frontend.rule=Host:mx.${MAILSERVER_DOMAIN}
       - traefik.port=8080
       - traefik.docker.network=http_network
     volumes:
@@ -33,7 +33,7 @@ services:
       - http_network
 
   mailserver:
-    image: hardware/mailserver:${MAILSERVER_DOCKER_TAG}
+    image: mxserver/mailserver:${MAILSERVER_DOCKER_TAG}
     restart: ${RESTART_MODE}
     domainname: ${MAILSERVER_DOMAIN}                    # Mail server A/MX/FQDN & reverse PTR = mail.domain.tld.
     hostname: ${MAILSERVER_HOSTNAME}
@@ -82,7 +82,7 @@ services:
   # http://postfixadmin.sourceforge.net/
   # Configuration : https://github.com/hardware/mailserver/wiki/Postfixadmin-initial-configuration
   postfixadmin:
-    image: hardware/postfixadmin
+    image: mxserver/postfixadmin
     restart: ${RESTART_MODE}
     domainname: ${MAILSERVER_DOMAIN}
     hostname: ${MAILSERVER_HOSTNAME}
@@ -140,11 +140,11 @@ services:
   # https://github.com/docker-library/mariadb
   # https://mariadb.org/
   mariadb:
-    image: mariadb:10.2
+    image: mariadb:10.4
     restart: ${RESTART_MODE}
     # Info : These variables are ignored when the volume already exists (if databases was created before).
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes # MYSQL_ROOT_PASSWORD=my-secret-pw
       - MYSQL_DATABASE=postfix
       - MYSQL_USER=postfix
       - MYSQL_PASSWORD=${DATABASE_USER_PASSWORD}
@@ -157,7 +157,7 @@ services:
   # https://github.com/docker-library/redis
   # https://redis.io/
   redis:
-    image: redis:4.0-alpine
+    image: redis:6.0-alpine
     restart: ${RESTART_MODE}
     command: redis-server --appendonly yes
     volumes:
