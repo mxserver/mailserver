@@ -1615,10 +1615,11 @@ load 'test_helper/bats-assert/load'
   assert_success
 }
 
-@test "checking clamav: mirrors.dat exist" {
-  run docker exec mailserver_default [ -f /var/lib/clamav/mirrors.dat ]
-  assert_success
-}
+## Individual mirrors are no longer tracked, as official signature distribution is now done through the CloudFlare CDN.
+#@test "checking clamav: mirrors.dat exist" {
+#  run docker exec mailserver_default [ -f /var/lib/clamav/mirrors.dat ]
+#  assert_success
+#}
 
 @test "checking clamav: default lib directory is a symlink" {
   run docker exec mailserver_default [ -L /var/lib/clamav ]
