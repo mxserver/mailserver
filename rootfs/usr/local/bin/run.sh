@@ -64,6 +64,10 @@ if [ "$DBDRIVER" = "ldap" ]; then
       exit 1
     fi
   fi
+  if [ -z "$DBPASS" ]; then
+    export DBPASS
+    DBPASS="<no value>"
+  fi
 else
   if [ -z "$DBPASS" ]; then
     echo "[ERROR] MariaDB/PostgreSQL database password must be set !"
