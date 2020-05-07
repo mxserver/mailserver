@@ -10,14 +10,7 @@ build-no-cache:
 build:
 	docker build -t $(NAME) .
 
-init:
-	-docker rm -f \
-		mariadb postgres redis openldap \
-		mailserver_default mailserver_reverse mailserver_ecdsa mailserver_ldap mailserver_ldap2 \
-		mailserver_traefik_acmev1 mailserver_traefik_acmev2
-
-	sleep 2
-
+init: cleantest
 	docker run \
 		-d \
 		--name mariadb \
@@ -27,7 +20,7 @@ init:
 		-e MYSQL_PASSWORD=testpasswd \
 		-v "`pwd`/test/config/mariadb/struct.sql":/docker-entrypoint-initdb.d/struct.sql \
 		-v "`pwd`/test/config/mariadb/bind.cnf":/etc/mysql/conf.d/bind.cnf \
-		-t mysql:5.7
+		-t mariadb:10.4
 
 	docker run \
 		-d \
@@ -36,12 +29,12 @@ init:
 		-e POSTGRES_USER=postfix \
 		-e POSTGRES_PASSWORD=testpasswd \
 		-v "`pwd`/test/config/postgres":/docker-entrypoint-initdb.d \
-		-t postgres:10.5-alpine
+		-t postgres:12.2-alpine
 
 	docker run \
 		-d \
 		--name redis \
-		-t redis:4.0-alpine
+		-t redis:6.0-alpine
 
 	docker run \
 		-d \
@@ -144,6 +137,8 @@ init:
 		-e LDAP_DOVECOT_PASS_FILTER="(&(mail=%u)(objectClass=mailAccount))" \
 		-e LDAP_DOVECOT_ITERATE_ATTRS="mail=user" \
 		-e LDAP_DOVECOT_ITERATE_FILTER="(objectClass=mailAccount)" \
+		-e LDAP_DOVECOT_MASTER_PASS_ATTRS="mail=user,userPassword=password" \
+		-e LDAP_DOVECOT_MASTER_PASS_FILTER="(&(mail=%u)(st=%{login_user})(objectClass=mailAccount))" \
 		-e VMAILUID=`id -u` \
 		-e VMAILGID=`id -g` \
 		-e RSPAMD_PASSWORD=testpasswd \
@@ -322,3 +317,10 @@ run:
 clean:
 	docker images --quiet --filter=dangling=true | xargs --no-run-if-empty docker rmi
 	docker volume ls -qf dangling=true | xargs -r docker volume rm
+
+cleantest:
+	-docker rm -f \
+		mariadb postgres redis openldap \
+		mailserver_default mailserver_reverse mailserver_ecdsa mailserver_ldap mailserver_ldap2 \
+		mailserver_traefik_acmev1 mailserver_traefik_acmev2
+	sleep 2
