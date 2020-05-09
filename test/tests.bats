@@ -1627,7 +1627,7 @@ load 'test_helper/bats-assert/load'
 }
 
 @test "checking clamav: Eicar-Test-Signature FOUND" {
-  run docker exec mailserver_default grep -i 'Eicar-Test-Signature(.*) FOUND' /var/log/mail.log
+  run docker exec mailserver_default grep -i 'EICAR.TEST.*FOUND' /var/log/mail.log
   assert_success
 }
 
