@@ -1,6 +1,6 @@
 FROM mxserver/debian-mail-overlay:latest
 
-LABEL description "Simple and full-featured mail server using Docker" \
+LABEL description="Simple and full-featured mail server using Docker" \
       maintainer="Hardware <contact@meshup.net>"
 
 ARG DEBIAN_FRONTEND=noninteractive
